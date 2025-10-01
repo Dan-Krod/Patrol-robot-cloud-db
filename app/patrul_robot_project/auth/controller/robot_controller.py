@@ -8,12 +8,16 @@ class RobotController:
         if not all(field in data for field in required_fields):
             return {'error': 'Missing required fields'}, 400
         
+        alt_power = data['alternative_power_source']
+        if isinstance(alt_power, bool):
+            alt_power = 'yes' if alt_power else 'no'
+
         robot = RobotService.add_robot(
             status=data['status'],
             max_distance=data['max_distance'],
             operator_id=data['operator_id'],
             station_id=data['station_id'],
-            alternative_power_source=data['alternative_power_source']
+            alternative_power_source=alt_power
         )
         return {'id': robot.robot_id}, 201
 
@@ -48,6 +52,10 @@ class RobotController:
         required_fields = ['status', 'max_distance', 'operator_id', 'station_id', 'alternative_power_source']
         if not all(field in data for field in required_fields):
             return {'error': 'Missing required fields'}, 400
+	
+        alt_power = data['alternative_power_source']
+        if isinstance(alt_power, bool):
+            alt_power = 'yes' if alt_power else 'no'        
         
         robot = RobotService.update_robot(
             robot_id,
@@ -55,7 +63,7 @@ class RobotController:
             max_distance=data['max_distance'],
             operator_id=data['operator_id'],
             station_id=data['station_id'],
-            alternative_power_source=data['alternative_power_source']
+            alternative_power_source=alt_power
         )
         if robot:
             return {'message': 'Robot updated'}, 200

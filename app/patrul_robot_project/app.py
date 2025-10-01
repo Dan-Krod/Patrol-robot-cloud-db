@@ -1,5 +1,6 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from flasgger import Swagger
 from dotenv import load_dotenv
 import os
 from auth.domain.models import db
@@ -16,6 +17,24 @@ from auth.route.sensor_route import sensor_blueprint
 load_dotenv()
 
 app = Flask(__name__)
+
+swagger_config = {
+    "headers": [],
+    "specs": [
+        {
+            "endpoint": "apispec",
+            "route": "/apispec.json",   
+            "rule_filter": lambda rule: True,
+            "model_filter": lambda tag: True,
+        }
+    ],
+    "static_url_path": "/flasgger_static",
+    "swagger_ui": True,
+    "specs_route": "/apidocs/"   
+}
+
+Swagger(app, config=swagger_config)
+
 
 app.config['SQLALCHEMY_DATABASE_URI'] = (
     f"mysql+pymysql://{os.getenv('DB_USER')}:{os.getenv('DB_PASSWORD')}"
@@ -37,6 +56,25 @@ app.register_blueprint(robot_maintenance_blueprint)
 @app.route('/')
 def index():
     return "Підключення до бази даних успішне!"
+
+@app.route('/api/health', methods=['GET'])
+def health():
+    """
+    Health check
+    ---
+    responses:
+      200:
+        description: OK
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  example: ok
+    """
+    return {"status": "ok"}
 
 if __name__ == '__main__':
     app.run(debug=True)
