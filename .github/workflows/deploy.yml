@@ -32,4 +32,4 @@ jobs:
         run: |
           ssh -o BatchMode=yes -p "$SSH_PORT" "$SSH_USER@$SSH_HOST" 'bash -s' <<'EOF'
             /home/ubuntu/Patrol-robot-cloud-db/deploy.sh
-EOF
+      EOF
