@@ -1,15 +1,19 @@
 from flask import Blueprint, request, jsonify
 from auth.controller.sensor_controller import SensorController
+from flask_jwt_extended import jwt_required
 
 sensor_blueprint = Blueprint('sensor', __name__)
 
 @sensor_blueprint.route('/sensors', methods=['POST'])
+@jwt_required()
 def add_sensor():
     """
     Add a new sensor
     ---
     tags:
       - Sensor
+    security:
+      - BearerAuth: []
     consumes:
       - application/json
     parameters:
@@ -48,12 +52,15 @@ def add_sensor():
 
 
 @sensor_blueprint.route('/sensors/<int:sensor_id>', methods=['GET'])
+@jwt_required()
 def get_sensor(sensor_id):
     """
     Get a sensor by ID
     ---
     tags:
       - Sensor
+    security:
+      - BearerAuth: []
     parameters:
       - name: sensor_id
         in: path
@@ -71,12 +78,15 @@ def get_sensor(sensor_id):
 
 
 @sensor_blueprint.route('/sensors', methods=['GET'])
+@jwt_required()
 def get_all_sensors():
     """
     Get all sensors
     ---
     tags:
       - Sensor
+    security:
+      - BearerAuth: []
     responses:
       200:
         description: List of all sensors
@@ -86,12 +96,15 @@ def get_all_sensors():
 
 
 @sensor_blueprint.route('/sensors/<int:sensor_id>', methods=['PUT'])
+@jwt_required()
 def update_sensor(sensor_id):
     """
     Update a sensor
     ---
     tags:
       - Sensor
+    security:
+      - BearerAuth: []
     consumes:
       - application/json
     parameters:
@@ -129,12 +142,15 @@ def update_sensor(sensor_id):
 
 
 @sensor_blueprint.route('/sensors/<int:sensor_id>', methods=['DELETE'])
+@jwt_required()
 def delete_sensor(sensor_id):
     """
     Delete a sensor
     ---
     tags:
       - Sensor
+    security:
+      - BearerAuth: []
     parameters:
       - name: sensor_id
         in: path
@@ -152,12 +168,15 @@ def delete_sensor(sensor_id):
 
 
 @sensor_blueprint.route('/sensors_with_robot', methods=['GET'])
+@jwt_required()
 def get_sensors_with_robot():
     """
     Get sensors along with their assigned robot
     ---
     tags:
       - Sensor
+    security:
+      - BearerAuth: []
     responses:
       200:
         description: List of sensors with associated robot

@@ -18,3 +18,4 @@ from .sensor import Sensor
 from .person_identification import PersonIdentification
 from .solar_system import SolarSystem
 from .robot_maintenance import RobotMaintenance
+from .user import User
