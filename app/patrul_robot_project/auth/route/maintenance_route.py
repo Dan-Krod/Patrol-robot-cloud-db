@@ -20,20 +20,25 @@ def add_maintenance():
         schema:
           type: object
           required:
-            - robot_id
+            - maintenance_date
             - description
-            - scheduled_date
+            - technician_name
+            - next_maintenance
           properties:
-            robot_id:
-              type: integer
-              example: 1
+            maintenance_date:
+              type: string
+              format: date-time
+              example: "2025-10-15T10:00:00"
             description:
               type: string
               example: "Battery replacement"
-            scheduled_date:
+            technician_name:
               type: string
-              format: date
-              example: "2025-10-15"
+              example: "John Doe"
+            next_maintenance:
+              type: string
+              format: date-time
+              example: "2025-12-01T10:00:00"
     responses:
       201:
         description: Maintenance record created successfully
@@ -103,13 +108,20 @@ def update_maintenance(maintenance_id):
         schema:
           type: object
           properties:
+            maintenance_date:
+              type: string
+              format: date-time
+              example: "2025-10-20T14:00:00"
             description:
               type: string
               example: "Software update"
-            scheduled_date:
+            technician_name:
               type: string
-              format: date
-              example: "2025-11-01"
+              example: "Jane Smith"
+            next_maintenance:
+              type: string
+              format: date-time
+              example: "2026-01-15T09:00:00"
     responses:
       200:
         description: Maintenance record updated successfully

@@ -21,19 +21,32 @@ def add_identification():
           type: object
           required:
             - person_name
-            - identification_type
-            - identification_date
+            - timestamp
+            - accuracy
+            - sensor_id
+            - camera_id
+            - report_id
           properties:
             person_name:
               type: string
               example: "John Doe"
-            identification_type:
+            timestamp:
               type: string
-              example: "Facial Recognition"
-            identification_date:
-              type: string
-              format: date
-              example: "2025-10-03"
+              format: date-time
+              example: "2025-10-03T14:30:00"
+            accuracy:
+              type: number
+              format: float
+              example: 97.85
+            sensor_id:
+              type: integer
+              example: 1
+            camera_id:
+              type: integer
+              example: 2
+            report_id:
+              type: integer
+              example: 3
     responses:
       201:
         description: Person identification record created successfully
@@ -106,13 +119,23 @@ def update_identification(identification_id):
             person_name:
               type: string
               example: "Jane Smith"
-            identification_type:
+            timestamp:
               type: string
-              example: "RFID"
-            identification_date:
-              type: string
-              format: date
-              example: "2025-11-01"
+              format: date-time
+              example: "2025-11-01T09:15:00"
+            accuracy:
+              type: number
+              format: float
+              example: 95.40
+            sensor_id:
+              type: integer
+              example: 1
+            camera_id:
+              type: integer
+              example: 2
+            report_id:
+              type: integer
+              example: 3
     responses:
       200:
         description: Person identification record updated successfully

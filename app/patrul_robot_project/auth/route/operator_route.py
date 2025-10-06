@@ -21,12 +21,22 @@ def add_operator():
           type: object
           required:
             - name
-            - phone
+            - shift_start
+            - shift_end
+            - contact_info
           properties:
             name:
               type: string
               example: John Doe
-            phone:
+            shift_start:
+              type: string
+              format: time
+              example: "08:00:00"
+            shift_end:
+              type: string
+              format: time
+              example: "16:00:00"
+            contact_info:
               type: string
               example: "+380991234567"
     responses:
@@ -72,7 +82,7 @@ def get_all_operators():
       - Operator
     responses:
       200:
-        description: List of all operators
+        description: List of all operators with their details
     """
     response, status_code = OperatorController.get_all_operators()
     return jsonify(response), status_code
@@ -101,9 +111,17 @@ def update_operator(operator_id):
             name:
               type: string
               example: Jane Doe
-            phone:
+            shift_start:
               type: string
-              example: "+380991234567"
+              format: time
+              example: "09:00:00"
+            shift_end:
+              type: string
+              format: time
+              example: "17:00:00"
+            contact_info:
+              type: string
+              example: "+380671234567"
     responses:
       200:
         description: Operator updated successfully
@@ -147,7 +165,7 @@ def get_operators_with_robots():
       - Operator
     responses:
       200:
-        description: List of operators and their robots
+        description: List of operators with their robots, including shift details and contact info
     """
     response, status_code = OperatorController.get_operators_with_robots()
     return jsonify(response), status_code

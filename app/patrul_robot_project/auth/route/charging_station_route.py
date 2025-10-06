@@ -22,6 +22,7 @@ def add_station():
           required:
             - location
             - capacity
+            - available
           properties:
             location:
               type: string
@@ -29,6 +30,10 @@ def add_station():
             capacity:
               type: integer
               example: 4
+            available:
+              type: string
+              enum: ["yes", "no"]
+              example: "yes"
     responses:
       201:
         description: Charging station created successfully
@@ -104,6 +109,10 @@ def update_station(station_id):
             capacity:
               type: integer
               example: 6
+            available:
+              type: string
+              enum: ["yes", "no"]
+              example: "no"
     responses:
       200:
         description: Charging station updated successfully

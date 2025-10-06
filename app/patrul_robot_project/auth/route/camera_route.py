@@ -20,15 +20,33 @@ def add_camera():
         schema:
           type: object
           required:
-            - model
+            - robot_id
             - resolution
+            - zoom_level
+            - status
+            - night_vision
+            - panoramic_view
           properties:
-            model:
-              type: string
-              example: "Logitech C920"
+            robot_id:
+              type: integer
+              example: 1
             resolution:
               type: string
               example: "1920x1080"
+            zoom_level:
+              type: integer
+              example: 5
+            status:
+              type: string
+              example: "active"
+            night_vision:
+              type: string
+              enum: [yes, no]
+              example: yes
+            panoramic_view:
+              type: string
+              enum: [yes, no]
+              example: no
     responses:
       201:
         description: Camera created successfully
@@ -98,12 +116,23 @@ def update_camera(camera_id):
         schema:
           type: object
           properties:
-            model:
-              type: string
-              example: "Logitech Brio"
             resolution:
               type: string
               example: "3840x2160"
+            zoom_level:
+              type: integer
+              example: 10
+            status:
+              type: string
+              example: "inactive"
+            night_vision:
+              type: string
+              enum: [yes, no]
+              example: no
+            panoramic_view:
+              type: string
+              enum: [yes, no]
+              example: yes
     responses:
       200:
         description: Camera updated successfully

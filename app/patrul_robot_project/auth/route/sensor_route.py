@@ -19,15 +19,23 @@ def add_sensor():
         schema:
           type: object
           required:
-            - type
             - robot_id
+            - technology_used
+            - detection_range
+            - trigger_status
           properties:
-            type:
-              type: string
-              example: "Temperature"
             robot_id:
               type: integer
               example: 1
+            technology_used:
+              type: string
+              example: "Infrared"
+            detection_range:
+              type: integer
+              example: 100
+            trigger_status:
+              type: string
+              example: "Active"
     responses:
       201:
         description: Sensor created successfully
@@ -97,12 +105,18 @@ def update_sensor(sensor_id):
         schema:
           type: object
           properties:
-            type:
-              type: string
-              example: "Humidity"
             robot_id:
               type: integer
               example: 2
+            technology_used:
+              type: string
+              example: "Ultrasonic"
+            detection_range:
+              type: integer
+              example: 200
+            trigger_status:
+              type: string
+              example: "Inactive"
     responses:
       200:
         description: Sensor updated successfully
